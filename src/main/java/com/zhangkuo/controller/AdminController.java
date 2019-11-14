@@ -42,7 +42,7 @@ public class AdminController {
 	 */
 	@RequestMapping("articles")
 	public String articles() {
-		return "admin/articles/list";
+		return "admin/article/list";
 	}
 	
 	/**
