@@ -51,7 +51,7 @@
 			  	</ul>
 			  </li>
 			  <li class="divider"></li>
-			  <li><a href="javascript:showFuction('/admin/users')">用户管理</a></li>
+			  <li><a href="javascript:showFuction('/admin/user')">用户管理</a></li>
 			</ul>
 		</div>
 	</div>

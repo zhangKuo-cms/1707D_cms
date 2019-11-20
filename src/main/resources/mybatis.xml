@@ -5,12 +5,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 
 <!-- 别名配置 -->
- <typeAliases>
-    <!-- todo -->
+ <!-- <typeAliases>
+    todo
    <package name="com.zhangkuo.entity"/>
-   <!-- todo -->
+   todo
    <package name="com.zhangkuo.vo"/>
- </typeAliases>
+ </typeAliases> -->
  
  
  <!-- 配置分页助手拦截器 -->
