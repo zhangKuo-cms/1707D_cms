@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link href="/resource/bootstrap/css/bootstrap.css" rel="stylesheet">  
  <script type="text/javascript" src="/resource/js/jquery-3.2.1.js"></script> 
@@ -29,50 +29,8 @@
 <body>
 <!-- 导航条 -->
 <nav class="navbar navbar-default">
- 
-  	
-  	<!-- logo -->
-  	<div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        <img alt="Brand" src="/resource/images/logo.png">
-      </a>
-      
-      
-      
-    </div>
-    
-      <form class="navbar-form"  style="float:none;text-align:center;">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      
-    <!-- 搜索框和右侧登录信息 -->
-    <div class="collapse navbar-collapse" style="float:none;text-align:right;"  id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        
-      </ul>
-      
-    
-      
-      <ul class="nav navbar-nav navbar-right" >
-        <li><a href="#"><img width="40px" height="40px" src="/resource/images/donghua.gif"/> </a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          		张三 <span class="caret"></span></a>
-          <ul class="dropdown-menu ">
-            <li><a href="#">个人中心</a></li>
-            <li><a href="#">个人设置</a></li>
-            <li><a href="#">修改头像</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">退出登录</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-    
- 
+  <%-- 	<jsp:include page="./common/top.jsp"> --%>
+  	<%@ include file="./common/top.jsp" %>
 </nav>
 
 <div class="container-fluid" >

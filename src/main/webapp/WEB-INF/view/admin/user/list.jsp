@@ -119,7 +119,7 @@ function search(){
 
 <script type="text/javascript">
 	function goPage(page){
-		var url="/admin/user?page="+page + "&name=${name}";
+		var url="/admin/users?page="+page + "&name=${name}";
 		$("#content").load(url);
 	}
 </script>

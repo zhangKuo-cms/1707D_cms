@@ -42,6 +42,9 @@ public class IndexController {
 			@RequestParam(defaultValue = "0")int categoryId,
 			@RequestParam(
 					defaultValue = "1")int page) {
+		request.setAttribute("chnId", chnId);
+		request.setAttribute("categoryId", categoryId);
+		
 		//获取最新频道
 		List<Channel> channels = channelService.list();
 		request.setAttribute("channels", channels);

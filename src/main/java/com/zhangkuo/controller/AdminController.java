@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.zhangkuo.common.MsgResult;
+import com.zhangkuo.entity.Article;
 import com.zhangkuo.entity.User;
+import com.zhangkuo.service.ArticleService;
 import com.zhangkuo.service.UserService;
 
 /** 
@@ -27,6 +29,9 @@ public class AdminController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	ArticleService articleService;
+	
 	/**
 	 * 首页
 	 * @return
@@ -37,11 +42,22 @@ public class AdminController {
 	}
 	
 	/**
-	 * 文章列表
+	 * 
+	 * @Title: articles 
+	 * @Description: TODO
+	 * @param request
+	 * @param status  -1 全部  0 待审核  1 审核通过  2 审核未通过
+	 * @param page
 	 * @return
+	 * @return: String
 	 */
 	@RequestMapping("articles")
-	public String articles() {
+	public String articles(HttpServletRequest request,
+			@RequestParam(defaultValue = "-1")int status,
+			@RequestParam(defaultValue = "1")Integer page) {
+		PageInfo<Article> articlePage = articleService.getPageList(status,page);
+		request.setAttribute("pageInfo", articlePage);
+		request.setAttribute("status", status);
 		return "admin/article/list";
 	}
 	
@@ -58,9 +74,16 @@ public class AdminController {
 			@RequestParam(defaultValue = "1")Integer page) {
 		 PageInfo<User> pageInfo = userService.getPageList(name,page);
 		 request.setAttribute("info", pageInfo);
+		 request.setAttribute("name", name);
 		return "admin/user/list";
 	}
 	
+	/**
+	 * 用户解禁或封禁用户
+	 * @param userId
+	 * @param status
+	 * @return
+	 */
 	@RequestMapping("lockuser")
 	@ResponseBody
 	public MsgResult lock(Integer userId, int status) {
