@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.URL;
 .
  */
 
-public class Link {
+public class Line {
 	
 	int  id;
 	

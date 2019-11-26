@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhangkuo.controller.CollectController;
-import com.zhangkuo.dao.CollectMapper;
-import com.zhangkuo.entity.Collect;
-import com.zhangkuo.service.CollectService;
+import com.zhangkuo.controller.CollectionController;
+import com.zhangkuo.dao.CollectionMapper;
+import com.zhangkuo.entity.Collection;
+import com.zhangkuo.service.CollectionService;
 
 /** 
 
@@ -18,20 +18,20 @@ import com.zhangkuo.service.CollectService;
 
 */
 @Service
-public class CollectServiceImpl implements CollectService {
+public class CollectionServiceImpl implements CollectionService {
 
 	@Autowired
-	CollectMapper collectMapper;
+	CollectionMapper collectMapper;
 	
 	@Override
 	public PageInfo list(Integer userId, int page) {
 		// TODO Auto-generated method stub
 		PageHelper.startPage(page, 10);
-		return new PageInfo<Collect>(collectMapper.list(userId));
+		return new PageInfo<Collection>(collectMapper.list(userId));
 	}
 
 	@Override
-	public Collect get(int id) {
+	public Collection get(int id) {
 		// TODO Auto-generated method stub
 		return collectMapper.get(id);
 	}
@@ -43,13 +43,13 @@ public class CollectServiceImpl implements CollectService {
 	}
 
 	@Override
-	public int update(Collect collect) {
+	public int update(Collection collect) {
 		// TODO Auto-generated method stub
 		return collectMapper.update(collect);
 	}
 
 	@Override
-	public int add(Collect collect) {
+	public int add(Collection collect) {
 		// TODO Auto-generated method stub
 		return collectMapper.add(collect);
 	}

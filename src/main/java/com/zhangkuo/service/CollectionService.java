@@ -3,7 +3,7 @@ package com.zhangkuo.service;
 import javax.validation.Valid;
 
 import com.github.pagehelper.PageInfo;
-import com.zhangkuo.entity.Collect;
+import com.zhangkuo.entity.Collection;
 
 /** 
 
@@ -12,7 +12,7 @@ import com.zhangkuo.entity.Collect;
 * @version 创建时间：2019年11月25日 下午3:19:34 
 
 */
-public interface CollectService {
+public interface CollectionService {
 
 	/**
 	 * 
@@ -27,7 +27,7 @@ public interface CollectService {
 	 * @param id
 	 * @return
 	 */
-	Collect get(int id);
+	Collection get(int id);
 
 	/**
 	 * 
@@ -40,13 +40,13 @@ public interface CollectService {
 	 * 
 	 * @param collect
 	 */
-	int update(Collect collect);
+	int update(Collection collect);
 
 	/**
 	 * 
 	 * @param collect
 	 * @return
 	 */
-	int add(Collect collect);
+	int add(Collection collect);
 
 }

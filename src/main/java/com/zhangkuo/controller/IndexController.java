@@ -14,11 +14,11 @@ import com.github.pagehelper.PageInfo;
 import com.zhangkuo.entity.Article;
 import com.zhangkuo.entity.Category;
 import com.zhangkuo.entity.Channel;
-import com.zhangkuo.entity.Link;
+import com.zhangkuo.entity.Line;
 import com.zhangkuo.service.ArticleService;
 import com.zhangkuo.service.CategoryService;
 import com.zhangkuo.service.ChannelService;
-import com.zhangkuo.service.LinkService;
+import com.zhangkuo.service.LienService;
 
 /** 
 
@@ -40,7 +40,7 @@ public class IndexController {
 	ArticleService articleService;
 	
 	@Autowired
-	LinkService linkService;
+	LienService linkService;
 
 	/**
 	 * 
@@ -92,8 +92,8 @@ public class IndexController {
 		request.setAttribute("imgArticles", imgArticles);
 		
 		// 友情链接
-		PageInfo<Link> info=  linkService.list(1);
-		List<Link> linkList =  info.getList();
+		PageInfo<Line> info=  linkService.list(1);
+		List<Line> linkList =  info.getList();
 		
 		request.setAttribute("linkList", linkList);
 		

@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.zhangkuo.entity.Collect;
+import com.zhangkuo.entity.Collection;
 
 /** 
 
@@ -16,7 +16,7 @@ import com.zhangkuo.entity.Collect;
 * @version 创建时间：2019年11月25日 下午7:39:57 
 
 */
-public interface CollectMapper {
+public interface CollectionMapper {
 
 	/**
 	 * 
@@ -24,7 +24,7 @@ public interface CollectMapper {
 	 * @return
 	 */
 	@Select("SELECT * FROM cms_collect WHERE id=#{value} ")
-	Collect get(int id);
+	Collection get(int id);
 
 	/**
 	 * 
@@ -41,7 +41,7 @@ public interface CollectMapper {
 	 */
 	@Update("UPDATE cms_collect set url=#{url},name=#{name} "
 			+ "	WHERE id=#{id}")
-	int update(Collect collect);
+	int update(Collection collect);
 
 	/**
 	 * 
@@ -50,7 +50,7 @@ public interface CollectMapper {
 	 */
 	@Insert("INSERT INTO cms_collect (userId,url,name,created) "
 			+ " VALUES(#{userId},#{url},#{name},now())")
-	int add(Collect collect);
+	int add(Collection collect);
 
 	/**
 	 * 
@@ -60,6 +60,6 @@ public interface CollectMapper {
 	@Select("SELECT * FROM cms_collect "
 			+ " WHERE userId=#{userId} "
 			+ " ORDER BY created DESC")
-	List<Collect> list(Integer userId);
+	List<Collection> list(Integer userId);
 
 }

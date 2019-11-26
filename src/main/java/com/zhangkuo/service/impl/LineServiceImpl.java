@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhangkuo.dao.LinkMapper;
-import com.zhangkuo.entity.Link;
-import com.zhangkuo.service.LinkService;
+import com.zhangkuo.dao.LineMapper;
+import com.zhangkuo.entity.Line;
+import com.zhangkuo.service.LienService;
 
 /** 
 
@@ -17,21 +17,21 @@ import com.zhangkuo.service.LinkService;
 
 */
 @Service
-public class LinkServiceImpl implements LinkService {
+public class LineServiceImpl implements LienService {
 
 	@Autowired
-	LinkMapper linkMapper;
+	LineMapper linkMapper;
 	
 	@Override
 	public PageInfo list(int page) {
 		// TODO Auto-generated method stub
 		PageHelper.startPage(page, 10);
 		
-		return new PageInfo<Link>(linkMapper.list());
+		return new PageInfo<Line>(linkMapper.list());
 	}
 
 	@Override
-	public Link get(int id) {
+	public Line get(int id) {
 		// TODO Auto-generated method stub
 		return linkMapper.get(id);
 	}
@@ -43,13 +43,13 @@ public class LinkServiceImpl implements LinkService {
 	}
 
 	@Override
-	public int update(Link link) {
+	public int update(Line link) {
 		// TODO Auto-generated method stub
 		return linkMapper.update(link);
 	}
 
 	@Override
-	public int add(Link link) {
+	public int add(Line link) {
 		// TODO Auto-generated method stub
 		return linkMapper.add(link);
 	}

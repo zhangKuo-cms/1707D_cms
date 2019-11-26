@@ -3,7 +3,7 @@ package com.zhangkuo.service;
 import javax.validation.Valid;
 
 import com.github.pagehelper.PageInfo;
-import com.zhangkuo.entity.Link;
+import com.zhangkuo.entity.Line;
 
 /** 
 
@@ -12,16 +12,16 @@ import com.zhangkuo.entity.Link;
 * @version 创建时间：2019年11月25日 下午2:57:55 
 
 */
-public interface LinkService {
+public interface LienService {
 
 	PageInfo list(int page);
 
-	Link get(int id);
+	Line get(int id);
 
 	int delete(int id);
 
-	int update(Link link);
+	int update(Line link);
 
-	int add(Link link);
+	int add(Line link);
 	
 }

@@ -29,13 +29,13 @@ import com.zhangkuo.common.ConstantClass;
 import com.zhangkuo.common.MsgResult;
 import com.zhangkuo.entity.Article;
 import com.zhangkuo.entity.Channel;
-import com.zhangkuo.entity.Collect;
+import com.zhangkuo.entity.Collection;
 import com.zhangkuo.entity.Image;
 import com.zhangkuo.entity.TypeEnum;
 import com.zhangkuo.entity.User;
 import com.zhangkuo.service.ArticleService;
 import com.zhangkuo.service.ChannelService;
-import com.zhangkuo.service.CollectService;
+import com.zhangkuo.service.CollectionService;
 import com.zhangkuo.service.UserService;
 
 /** 
@@ -61,7 +61,7 @@ public class UserController {
 	ArticleService articleService;
 	
 	@Autowired
-	CollectService collectService;
+	CollectionService collectService;
 	
 	@Autowired
 	ChannelService channelService;
@@ -405,7 +405,7 @@ public class UserController {
 	 */
 	@RequestMapping("collect")
 	@ResponseBody
-	public MsgResult collect(HttpServletRequest request, Collect collect) {
+	public MsgResult collect(HttpServletRequest request, Collection collect) {
 		
 		//CmsAssert.AssertTrue(id>0, "id 不合法");
 		User loginUser = (User)request.getSession().getAttribute(ConstantClass.USER_KEY);

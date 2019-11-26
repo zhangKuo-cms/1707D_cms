@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.zhangkuo.entity.Link;
+import com.zhangkuo.entity.Line;
 
 /** 
 
@@ -16,14 +16,14 @@ import com.zhangkuo.entity.Link;
 * @version 创建时间：2019年11月25日 下午7:33:04 
 
 */
-public interface LinkMapper {
+public interface LineMapper {
 
 	/**
 	 * 
 	 * @return
 	 */
 	@Select("SELECT * FROM cms_link ORDER BY created DESC")
-	List<Link> list();
+	List<Line> list();
 
 	/**
 	 * 
@@ -31,7 +31,7 @@ public interface LinkMapper {
 	 * @return
 	 */
 	@Select("SELECT * FROM cms_link WHERE id=#{value} ")
-	Link get(int id);
+	Line get(int id);
 
 	/**
 	 * 
@@ -48,7 +48,7 @@ public interface LinkMapper {
 	 */
 	@Update("UPDATE cms_link set url=#{url},name=#{name} "
 			+ "	WHERE id=#{id}")
-	int update(Link link);
+	int update(Line link);
 
 	/**
 	 * 
@@ -57,6 +57,6 @@ public interface LinkMapper {
 	 */
 	@Insert("INSERT INTO cms_link (url,name,created) "
 			+ " VALUES(#{url},#{name},now())")
-	int add(Link link);
+	int add(Line link);
 
 }

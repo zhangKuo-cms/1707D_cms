@@ -1,4 +1,11 @@
 package com.zhangkuo.controller;
+/** 
+
+* @author 作者 zk: 
+
+* @version 创建时间：2019年11月25日 下午2:58:46 
+
+*/
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -15,69 +22,56 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.zhangkuo.StringUtils;
-import com.zhangkuo.common.ConstantClass;
 import com.zhangkuo.common.MsgResult;
-import com.zhangkuo.entity.Collect;
-import com.zhangkuo.entity.User;
-import com.zhangkuo.service.CollectService;
+import com.zhangkuo.entity.Line;
+import com.zhangkuo.service.LienService;
 
-/** 
-
-* @author 作者 zk: 
-
-* @version 创建时间：2019年11月25日 下午3:13:13 
-* 收藏
-*/
 @Controller
-@RequestMapping("collect")
-public class CollectController {
+@RequestMapping("link")
+public class LienController {
 	
 	@Autowired
-	CollectService collectService;
+	LienService linkService;
 	
 	/**
-	 * 收藏列表
+	 * 列表
 	 * @param request
 	 * @param page
 	 * @return
 	 */
 	@RequestMapping("list")
-	public String list(HttpServletRequest request, 
-			@RequestParam(defaultValue="1") int page) {
-		
-		User loginUser = (User)request.getSession().getAttribute(ConstantClass.USER_KEY);
-		
-		
-		PageInfo info = collectService.list(loginUser.getId(), page);
+	public String list(HttpServletRequest request,
+			@RequestParam(defaultValue = "1")int page) {
+		PageInfo info = linkService.list(page);
 		request.setAttribute("info", info);
-		return "user/collect/list";
+		return "admin/link/list";
 	}
 	
 	/**
-	 * 跳收藏添加页面
+	 * 添加
 	 * @param request
 	 * @return
 	 */
 	@GetMapping("add")
 	public String add(HttpServletRequest request) {
-		request.setAttribute("collect", new Collect());
-		return "user/collect/add";	 
+		request.setAttribute("link", new Line());
+		return "admin/link/add";	 
 	}
 	
 	/**
-	 * 收藏修改回显
+	 * 修改
 	 * @param request
 	 * @param id
 	 * @return
 	 */
 	@GetMapping("update")
-	public String update(HttpServletRequest request,int id) {
-		request.setAttribute("collect", collectService.get(id));
-		return "user/collect/update";	 
+	public String add(HttpServletRequest request,int id) {
+		request.setAttribute("link", linkService.get(id));
+		return "admin/link/update";	 
 	}
 	
 	/**
-	 * 收藏删除
+	 * 删除
 	 * @param request
 	 * @param id
 	 * @return
@@ -85,7 +79,7 @@ public class CollectController {
 	@RequestMapping("delete")
 	@ResponseBody
 	public MsgResult delete(HttpServletRequest request,int id) {
-		int result = collectService.delete(id);
+		int result = linkService.delete(id);
 		if(result<1)
 			return new MsgResult(2,"删除失败",null);
 		
@@ -93,29 +87,58 @@ public class CollectController {
 	}
 	
 	/**
-	 * 收藏修改
+	 * 修改
 	 * @param request
-	 * @param collect
+	 * @param link
 	 * @param result
 	 * @return
 	 */
 	@PostMapping("update")
 	public String update(HttpServletRequest request,
-			@Valid  @ModelAttribute("collect") Collect collect,
+			@Valid  @ModelAttribute("link") Line link,
 			BindingResult result
 			) {
 		
-		if(!StringUtils.isHttpUrl(collect.getUrl())) {
+		if(!StringUtils.isHttpUrl(link.getUrl())) {
 			result.rejectValue("url", "不是合法的url", "不是合法的url");
 		}
 		
 		// 有错误 还在原来的页面
 		if(result.hasErrors()) {
-			//request.setAttribute("collect", collect);
-			return "user/collect/update";	
+			//request.setAttribute("link", link);
+			return "admin/link/update";	
 		}
 		
-		collectService.update(collect);
+		linkService.update(link);
+		
+		// 没有错误跳转到列表页面
+		return "redirect:list";
+	}
+	
+	/**
+	 * 添加
+	 * @param request
+	 * @param link
+	 * @param result
+	 * @return
+	 */
+	@PostMapping("add")
+	public String add(HttpServletRequest request,
+			@Valid  @ModelAttribute("link") Line link,
+			BindingResult result
+			) {
+		
+		if(!StringUtils.isHttpUrl(link.getUrl())) {
+			result.rejectValue("url", "不是合法的url", "不是合法的url");
+		}
+		
+		// 有错误 还在原来的页面
+		if(result.hasErrors()) {
+			
+			request.setAttribute("link", link);
+			return "amdin/link/add";	
+		}
+		linkService.add(link);
 		
 		// 没有错误跳转到列表页面
 		return "redirect:list";

@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.Length;
 * @version 创建时间：2019年11月14日 下午7:23:35 
 .
 */
-public class Collect {
+public class Collection {
 	
  private int	id;
  
