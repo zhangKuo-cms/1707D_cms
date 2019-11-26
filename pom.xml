@@ -48,29 +48,35 @@
 			<version>${spring.version}</version>
 		</dependency>
 		
+		<!-- 加载上下文环境 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		
+		<!-- 实例化Bean工厂 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		
+		<!-- web 容器 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		
+		<!-- MVC 框架 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		
+		<!-- 数据库的连接 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
@@ -83,6 +89,8 @@
 			<artifactId>spring-tx</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		
+		<!-- 上下文的支持 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
@@ -131,11 +139,14 @@
 			<version>1.2</version>
 		</dependency>
 		
+		<!-- 记录日志的接口 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${log4japi.version}</version>
 		</dependency>
+		
+		<!-- slf 与log4j 之间以各接口 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -147,8 +158,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junit-version}</version>
-			<scope>test</scope>
+			<version>4.12</version>
 		</dependency>
 		
 		<!-- 上传组件包 -->
@@ -157,6 +167,8 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>${commons-fileupload.version}</version>
 		</dependency>
+		
+		<!-- 文件的传输 -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -177,6 +189,7 @@
 			<version>${jstl.version}</version>
 		</dependency>
 		
+		
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
@@ -191,6 +204,7 @@
 			<version>${servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
 		<!--  json  解析json -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -211,12 +225,14 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>${aspectj-version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>${aspectj-version}</version>
 		</dependency>
-		<!--  后段数据校验  -->
+		
+		<!--  后端数据校验  -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -251,8 +267,9 @@
 			<version>2.8.5</version>
 		</dependency>
 	</dependencies>
-	
-	<!-- 构建项目 -->
+  
+  
+  <!-- 构建项目 -->
 	<build>
 		<plugins>
 			<plugin>
@@ -280,6 +297,16 @@
 						 <!--项目路径 -->
 						<host>localhost</host>
 					</httpConnector>
+					<contextHandlers>
+						<!-- <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext"> 
+							<contextPath>/pic</contextPath> <baseResource>d:/pic/</baseResource> </contextHandler> -->
+						<jettyWebAppContext>
+							<!-- 虚拟路径 -->
+							<contextPath>/pic</contextPath>
+							<!-- 物理路径 -->
+							<resourceBase>d:/pic/</resourceBase>
+						</jettyWebAppContext>
+					</contextHandlers>
 				 <scanIntervalSeconds>1</scanIntervalSeconds>
 				</configuration>
 			</plugin>
@@ -288,7 +315,6 @@
 			 <groupId>org.apache.maven.plugins</groupId>
 			 <artifactId>maven-site-plugin</artifactId>
 			 <version>3.7.1</version>
-			
 			</plugin>
 
 		</plugins>

@@ -3,6 +3,7 @@ package com.zhangkuo.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -22,14 +23,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
 import com.zhangkuo.common.CmsAssert;
 import com.zhangkuo.common.ConstantClass;
 import com.zhangkuo.common.MsgResult;
 import com.zhangkuo.entity.Article;
 import com.zhangkuo.entity.Channel;
+import com.zhangkuo.entity.Collect;
+import com.zhangkuo.entity.Image;
+import com.zhangkuo.entity.TypeEnum;
 import com.zhangkuo.entity.User;
 import com.zhangkuo.service.ArticleService;
 import com.zhangkuo.service.ChannelService;
+import com.zhangkuo.service.CollectService;
 import com.zhangkuo.service.UserService;
 
 /** 
@@ -55,9 +61,25 @@ public class UserController {
 	ArticleService articleService;
 	
 	@Autowired
+	CollectService collectService;
+	
+	@Autowired
 	ChannelService channelService;
 	
 	private SimpleDateFormat dateFormat;
+	
+	@RequestMapping("favarite")
+	@ResponseBody
+	public MsgResult favarite(HttpServletRequest request, int id) {
+		
+		CmsAssert.AssertTure(id>0, "id 不合法");
+		User loginUser = (User)request.getSession().getAttribute(ConstantClass.USER_KEY);
+		CmsAssert.AssertTure(loginUser!=null, "亲，您尚未登录！！");
+		int result = articleService.faverite(loginUser.getId(),id);
+		CmsAssert.AssertTure(result>0, "很遗憾，收藏失败！！");
+		return new MsgResult(1,"恭喜，收藏成功",null);
+		
+	}
 	
 	@RequestMapping(value = "hello",method = RequestMethod.GET)
 	public String tet(HttpServletRequest request) {
@@ -298,6 +320,108 @@ public class UserController {
     	CmsAssert.AssertTure(result>0, "文章删除失败");
     	return new MsgResult(1,"删除成功",null);
     }
+    
+    /**
+	 * 获取所有的频道
+	 * @return
+	 */
+	@GetMapping("postImg")
+	public String postImg(HttpServletRequest request) {
+		
+		// 获取所有的频道
+		List<Channel> channels =  channelService.list();
+		request.setAttribute("channels", channels);	
+		return "article/postimg";
+		
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@RequestMapping(value = "postImg",method=RequestMethod.POST)
+	@ResponseBody
+	public MsgResult postImg(HttpServletRequest request,Article article,
+			MultipartFile file[],String desc[]) throws IllegalStateException, IOException {
+		
+		User loginUser = (User)request.getSession().getAttribute(ConstantClass.USER_KEY);
+		
+		
+		List<Image> list = new ArrayList<>();
+		// 遍历处理每个上传图片 并存入list
+		for (int i = 0; i < file.length && i < desc.length; i++) {
+			String url = processFile(file[i]);
+			Image image = new Image();
+			image.setDesc(desc[i]);
+			image.setUrl(url);
+			list.add(image);
+		}
+		
+		//
+		Gson gson = new Gson();
+		
+		//设置作者
+		article.setUserId(loginUser.getId());
+		article.setContent(gson.toJson(list));
+		//设置文章类型 是图片
+		article.setArticleType(TypeEnum.IMG);
+		
+		int add = articleService.add(article);
+		if(add > 0) {
+			return new MsgResult(1,"发布成功11",null);
+		}else {
+			return new MsgResult(2,"发布失败11",null);
+		}
+		
+		
+	}
+	
+	/**
+	 * comment评论
+	 * @param request
+	 * @param id
+	 * @param content
+	 * @return
+	 */
+	@RequestMapping("comment")
+	@ResponseBody
+	public MsgResult comment(HttpServletRequest request, int id,String content) {
+		
+		User loginUser = (User)request.getSession().getAttribute(ConstantClass.USER_KEY);
+		CmsAssert.AssertTure(loginUser!=null, "亲，您尚未登录");
+		
+		int result = articleService.comment(loginUser.getId(),id,content);
+		CmsAssert.AssertTure(result>0, "亲，评论失败了！！");
+		return new MsgResult(1,"评论成功","");
+	}
+    
+	/**
+	 * 
+	 * @param request
+	 * @param collect
+	 * @return
+	 */
+	@RequestMapping("collect")
+	@ResponseBody
+	public MsgResult collect(HttpServletRequest request, Collect collect) {
+		
+		//CmsAssert.AssertTrue(id>0, "id 不合法");
+		User loginUser = (User)request.getSession().getAttribute(ConstantClass.USER_KEY);
+		CmsAssert.AssertTure(loginUser!=null, "亲，您尚未登录！！");
+		
+		if(collect.getName().length()>20) {
+			collect.setName(collect.getName().substring(0, 20) + "...");
+		}
+		collect.setUserId(loginUser.getId());
+		int result = collectService.add(collect);
+		
+		CmsAssert.AssertTure(result>0, "很遗憾，加入收藏失败！！");
+		return new MsgResult(1,"恭喜，收藏成功",null);
+		
+	}
+	
     private String htmlspecialchars(String str) {
     	str = str.replaceAll("&", "&amp;");
 		str = str.replaceAll("<", "&lt;");

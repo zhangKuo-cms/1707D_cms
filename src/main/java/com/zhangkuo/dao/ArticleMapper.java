@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.zhangkuo.entity.Article;
+import com.zhangkuo.entity.Comment;
 
 /** 
 
@@ -118,7 +119,7 @@ public interface ArticleMapper {
 	 */
 	@Update(" UPDATE cms_article SET  status=#{status} "
 			+ " WHERE id=#{id} ")
-	int apply(int id, int status);
+	int apply(@Param("id") int id,@Param("status") int status);
 
 	/**
 	 * 设置热门
@@ -128,6 +129,42 @@ public interface ArticleMapper {
 	 */
 	@Update(" UPDATE cms_article SET  hot=#{status} "
 			+ " WHERE id=#{id} ")
-	int setHot(int id, int status);
+	int setHot(@Param("id") int id,@Param("status") int status);
+
+	@Insert(" REPLACE cms_favorite(user_id,article_id,created) "
+			+ "VALUES(#{userId},#{articleId},now())")
+	int faverite(@Param("userId")Integer userId, @Param("articleId")int articleId);
+
+	/**
+	 * 获取10篇图片文章
+	 * @param num
+	 * @return
+	 */
+	List<Article> getImgArticles(int num);
 	
+	/**
+	 * 添加评论
+	 * @param userId
+	 * @param articleId
+	 * @param content
+	 * @return
+	 */
+	@Insert("INSERT INTO cms_comment (articleId,userId,content,created)"
+			+ " VALUES(#{articleId},#{userId},#{content},now())")
+	int addComment(@Param("userId")Integer userId, @Param("articleId")int articleId, @Param("content")String content);
+
+	/**
+	 * 评论数目自增一
+	 * @param articleId
+	 */
+	@Update("UPDATE cms_article set commentCnt=commentCnt+1 WHERE id=#{value} ")
+	void increaseCommentCnt(int articleId);
+
+	/**
+	 * 评论
+	 * @param articleId
+	 * @return
+	 */
+	@Select("SELECT * FROM cms_comment WHERE articleId=#{value}")
+	List<Comment> commentlist(int articleId);
 }

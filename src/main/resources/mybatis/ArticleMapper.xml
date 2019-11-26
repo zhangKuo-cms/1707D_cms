@@ -9,6 +9,10 @@
 		<result property="channelId" column="channel_id"/>
 		<result property="categoryId" column="category_id"/>
 		<result property="userId" column="user_id"/>
+		<result property="articleType" column="articleType" 
+		   typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
+			jdbcType="INTEGER" javaType="com.zhangkuo.entity.TypeEnum"
+		/>
 		<association property="user" column="user_id" select="com.zhangkuo.dao.UserMapper.findUserById"></association>
 		<association property="channel" column="channel_id" select="com.zhangkuo.dao.ChannelMapper.findById"></association>
 		<association property="category" column="category_id" select="com.zhangkuo.dao.CategoryMapper.findById"></association>
@@ -40,6 +44,15 @@
 			FROM cms_article 
 			WHERE deleted=0 AND status=1 AND hot=1
 			ORDER BY created DESC
+	</select>
+	
+	<!-- 获取图片文章 -->
+	<select id="getImgArticles" resultMap="articleMapper" >
+		SELECT id,title,picture,channel_id,category_id,user_id,hits,commentCnt,created,articleType
+			FROM cms_article 
+			WHERE deleted=0 AND status=1 AND articleType=1
+			ORDER BY created DESC 
+			LIMIT #{value}
 	</select>
 	
 	<!-- 根据用户获取文章 -->

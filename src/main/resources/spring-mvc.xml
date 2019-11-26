@@ -7,9 +7,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<!-- 扫描器 -->
-	<!--  todo -->
+	
+	<context:property-placeholder
+		location="classpath:cms.properties" />
+		
+	<!--  todo --> 
 	<context:component-scan
-		base-package="com.zhangkuo.controller"></context:component-scan>
+		base-package=" com.zhangkuo.controller"></context:component-scan>
 	<!-- 视图解析图 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -18,7 +22,6 @@
 		<!-- 配置后缀 -->
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	
 	
 	<!-- 配置权限的拦截器 -->
 	<mvc:interceptors>
@@ -29,19 +32,22 @@
 			<mvc:exclude-mapping path="/"/>
 			<mvc:exclude-mapping path="/index"/>
 			<mvc:exclude-mapping path="/pic/**"/>
+			<mvc:exclude-mapping path="/user/comment"/>			
 			<mvc:exclude-mapping path="/resource/**"/>
-			<mvc:exclude-mapping path="/article/showdetail"/>
+			<mvc:exclude-mapping path="/article/**"/>
+			<mvc:exclude-mapping path="/user/favarite"/>
+			<mvc:exclude-mapping path="/user/collect"/>
+			
 			<bean class="com.zhangkuo.web.UserInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
-	
 	
 	<!-- 上传下载配置 -->	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="utf-8"></property>
 		<property name="maxUploadSize" value="10485760000"></property>
 	</bean>
-
+	
 	<!-- <bean class=""></bean> -->
 	<!-- 不拦截静态资源 -->
 	<mvc:default-servlet-handler />

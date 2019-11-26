@@ -3,6 +3,7 @@ package com.zhangkuo.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,11 @@ import com.github.pagehelper.PageInfo;
 import com.zhangkuo.entity.Article;
 import com.zhangkuo.entity.Category;
 import com.zhangkuo.entity.Channel;
+import com.zhangkuo.entity.Link;
 import com.zhangkuo.service.ArticleService;
 import com.zhangkuo.service.CategoryService;
 import com.zhangkuo.service.ChannelService;
+import com.zhangkuo.service.LinkService;
 
 /** 
 
@@ -36,6 +39,16 @@ public class IndexController {
 	@Autowired
 	ArticleService articleService;
 	
+	@Autowired
+	LinkService linkService;
+
+	/**
+	 * 
+	 * @param request
+	 * @param chnId  频道id
+	 * @param page  文章页码
+	 * @return
+	 */
 	@RequestMapping("channel")
 	public String channel(HttpServletRequest request,
 			@RequestParam(defaultValue = "1")int chnId,
@@ -60,7 +73,7 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = {"index","/"})
-	public String index(HttpServletRequest request, @RequestParam(defaultValue = "1") int page) {
+	public String index(HttpServletRequest request,HttpServletResponse response, @RequestParam(defaultValue = "1") int page) {
 		
 		//获取所有的频道
 		List<Channel> channels = channelService.list();
@@ -73,6 +86,16 @@ public class IndexController {
 		//获取最新文章
 		List<Article> newArticles = articleService.getNewArticles(5);
 		request.setAttribute("newArticles", newArticles);
+		
+		// 获取最新图片文章
+		List<Article> imgArticles = articleService.getImgArticles(10);
+		request.setAttribute("imgArticles", imgArticles);
+		
+		// 友情链接
+		PageInfo<Link> info=  linkService.list(1);
+		List<Link> linkList =  info.getList();
+		
+		request.setAttribute("linkList", linkList);
 		
 		return "index";
 	}
