@@ -13,9 +13,7 @@
 		alert("ok")
 		$.post('/link/add',$("#form").serialize(),
 				function(html){
-				alert('rr');
 					$("#content").html(html);
-			
 			}
 			);
 		

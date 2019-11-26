@@ -44,7 +44,7 @@ public class LinkController {
 			@RequestParam(defaultValue = "1")int page) {
 		PageInfo info = linkService.list(page);
 		request.setAttribute("info", info);
-		return "amdin/link/list";
+		return "admin/link/list";
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class LinkController {
 	@GetMapping("add")
 	public String add(HttpServletRequest request) {
 		request.setAttribute("link", new Link());
-		return "amdin/link/add";	 
+		return "admin/link/add";	 
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class LinkController {
 	@GetMapping("update")
 	public String add(HttpServletRequest request,int id) {
 		request.setAttribute("link", linkService.get(id));
-		return "amdin/link/update";	 
+		return "admin/link/update";	 
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class LinkController {
 		// 有错误 还在原来的页面
 		if(result.hasErrors()) {
 			//request.setAttribute("link", link);
-			return "amdin/link/update";	
+			return "admin/link/update";	
 		}
 		
 		linkService.update(link);

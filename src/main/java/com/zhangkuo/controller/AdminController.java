@@ -69,7 +69,7 @@ public class AdminController {
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping("user")
+	@RequestMapping("users")
 	public String user(HttpServletRequest request,
 			@RequestParam(defaultValue = "")String name,
 			@RequestParam(defaultValue = "1")Integer page) {

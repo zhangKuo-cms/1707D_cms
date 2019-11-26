@@ -45,7 +45,7 @@ public class CollectController {
 	public String list(HttpServletRequest request, 
 			@RequestParam(defaultValue="1") int page) {
 		
-		User loginUser=(User)request.getSession().getAttribute(ConstantClass.USER_KEY);
+		User loginUser = (User)request.getSession().getAttribute(ConstantClass.USER_KEY);
 		
 		
 		PageInfo info = collectService.list(loginUser.getId(), page);
@@ -116,38 +116,6 @@ public class CollectController {
 		}
 		
 		collectService.update(collect);
-		
-		// 没有错误跳转到列表页面
-		return "redirect:list";
-	}
-	
-	/**
-	 * 
-	 * @param request
-	 * @param collect
-	 * @param result
-	 * @return
-	 */
-	@PostMapping("add")
-	public String add(HttpServletRequest request,
-			@Valid  @ModelAttribute("collect") Collect collect,
-			BindingResult result
-			) {
-		
-		if(!StringUtils.isHttpUrl(collect.getUrl())) {
-			result.rejectValue("url", "不是合法的url", "不是合法的url");
-		}
-		
-		// 有错误 还在原来的页面
-		if(result.hasErrors()) {
-			
-			request.setAttribute("collect", collect);
-			return "user/collect/add";	
-		}
-		
-		User loginUser=(User)request.getSession().getAttribute(ConstantClass.USER_KEY);
-		collect.setUserId(loginUser.getId());
-		collectService.add(collect);
 		
 		// 没有错误跳转到列表页面
 		return "redirect:list";

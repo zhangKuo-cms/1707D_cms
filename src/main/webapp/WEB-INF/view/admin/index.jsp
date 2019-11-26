@@ -73,7 +73,5 @@ role="navigation">
 		$("#content").load(url)
 	}
 </script>
-
-
 </body>
 </html>

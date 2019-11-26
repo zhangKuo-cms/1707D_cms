@@ -27,7 +27,7 @@ public class CollectServiceImpl implements CollectService {
 	public PageInfo list(Integer userId, int page) {
 		// TODO Auto-generated method stub
 		PageHelper.startPage(page, 10);
-		return new PageInfo<Collect>(collectMapper.list());
+		return new PageInfo<Collect>(collectMapper.list(userId));
 	}
 
 	@Override

@@ -54,11 +54,12 @@ public interface CollectMapper {
 
 	/**
 	 * 
+	 * @param userId 
 	 * @return
 	 */
 	@Select("SELECT * FROM cms_collect "
 			+ " WHERE userId=#{userId} "
 			+ " ORDER BY created DESC")
-	List<Collect> list();
+	List<Collect> list(Integer userId);
 
 }

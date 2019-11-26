@@ -59,6 +59,9 @@ public interface ArticleMapper {
 	List<Article> listByStatus(int status);
 
 	/**
+	 * 
+	 * #{articleType,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,"
+			+ "jdbcType=INTEGER,javaType=com.zhukaige.entity.TypeEnum}
 	 * 添加文章
 	 * @param article
 	 * @return
@@ -70,7 +73,9 @@ public interface ArticleMapper {
 			+ " values("
 			+ " #{title},#{content},#{picture},#{channelId},#{categoryId},"
 			+ "#{userId},#{hits},#{hot},#{status},#{deleted},"
-			+ "now(),now(),#{commentCnt},#{articleType})")
+			+ "now(),now(),#{commentCnt},"
+			+ "#{articleType,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,"
+			+ "jdbcType=INTEGER,javaType=com.zhangkuo.entity.TypeEnum})")
 	int add(Article article);
 
 	/** 
@@ -131,9 +136,15 @@ public interface ArticleMapper {
 			+ " WHERE id=#{id} ")
 	int setHot(@Param("id") int id,@Param("status") int status);
 
+	/**
+	 * 
+	 * @param userId
+	 * @param articleId
+	 * @return
+	 */
 	@Insert(" REPLACE cms_favorite(user_id,article_id,created) "
 			+ "VALUES(#{userId},#{articleId},now())")
-	int faverite(@Param("userId")Integer userId, @Param("articleId")int articleId);
+	int faverite(@Param("userId") Integer userId, @Param("articleId") int articleId);
 
 	/**
 	 * 获取10篇图片文章
@@ -151,7 +162,7 @@ public interface ArticleMapper {
 	 */
 	@Insert("INSERT INTO cms_comment (articleId,userId,content,created)"
 			+ " VALUES(#{articleId},#{userId},#{content},now())")
-	int addComment(@Param("userId")Integer userId, @Param("articleId")int articleId, @Param("content")String content);
+	int addComment(@Param("userId") Integer userId, @Param("articleId") int articleId, @Param("content") String content);
 
 	/**
 	 * 评论数目自增一

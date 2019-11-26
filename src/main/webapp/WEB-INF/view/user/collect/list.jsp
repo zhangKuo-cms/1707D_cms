@@ -10,15 +10,14 @@
 
 <div class="table-responsive">
   <table class="table">
-    <caption>友情链接</caption>
+    <caption>我的收藏</caption>
     <thead>
       <tr >
-        <th>id</th>
-        <th>名称</th>
+        <th>文章编号</th>
+        <th>内容</th>
         <th>地址</th>
         <th>创建时间</th>
-        <th>操作    <input type="button" value="添加" onclick="add()">
-        </th>
+        <th>操作</th>
        </tr>
     </thead>
     <tbody>
