@@ -115,6 +115,11 @@ public interface ArticleService {
 	 * @return
 	 */
 	int update(Article article);
+	
+	/**
+	 * 修改点击量
+	 */
+	void updateHits(Article article);
 
 	/**
 	 * 获取评论

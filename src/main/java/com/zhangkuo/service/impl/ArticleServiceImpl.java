@@ -32,6 +32,9 @@ public class ArticleServiceImpl implements ArticleService{
 		return articleMapper.getNewArticles(i);
 	}
 	
+	/**
+	 * TODO 热点文章
+	 */
 	@Override
 	public PageInfo<Article> hostList(int page) {
 		// TODO Auto-generated method stub
@@ -139,5 +142,11 @@ public class ArticleServiceImpl implements ArticleService{
 		// TODO Auto-generated method stub
 		PageHelper.startPage(page, 10);
 		return new PageInfo<Comment>(articleMapper.commentlist(articleId));
+	}
+
+	@Override
+	public void updateHits(Article article) {
+		// TODO Auto-generated method stub
+		articleMapper.updateHits(article);
 	}
 }

@@ -18,6 +18,10 @@
 		<association property="category" column="category_id" select="com.zhangkuo.dao.CategoryMapper.findById"></association>
 	</resultMap>
 	
+	<select id="findAll" resultMap="articleMapper">
+		SELECT * FROM cms_article WHERE deleted=0 AND status=1 
+	</select>
+	
 	<select id="getNewArticles" resultMap="articleMapper">
 		SELECT id,title FROM cms_article 
 		WHERE deleted=0 AND status=1 
@@ -78,4 +82,9 @@
 		SELECT * FROM cms_article 
 		  WHERE id=#{value} AND deleted=0
 	</select>
+	
+	
+	<update id="updateHits" parameterType="com.zhangkuo.entity.Article">
+		UPDATE cms_article set hits=#{hits} WHERE id=#{id}
+	</update>
 </mapper>

@@ -25,8 +25,7 @@ public interface UserMapper {
 	int updateStatus(@Param("userId")Integer userId, 
 			@Param("status")int status);
 
-	@Select("SELECT * FROM cms_user "
-			+ " WHERE username = #{value} limit 1 ")
+	@Select("SELECT * FROM cms_user WHERE username = #{value} limit 1 ")
 	User findByName(String username);
 
 	int add(User user);

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.jboss.logging.Field;
+
 /**
  * 
  * @author zk
@@ -13,15 +15,20 @@ public class Article implements Serializable {
 	
 	
 	/**
-	 * 
+	 * TODO
 	 */
 	private static final long serialVersionUID = 6320126833474686896L;
+	//主键
 	
-	private Integer id               ;
+	private Integer id;
 	// 文章标题
-	private String title            ;
+	
+	private String title;
 	// 文章内容
-	private String content          ;
+	
+	private String content;
+	
+	
 	//标题图片的url 地址
 	private String picture          ;
 	// 频道

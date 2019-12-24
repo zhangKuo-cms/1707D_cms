@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 import com.zhangkuo.entity.Article;
@@ -76,6 +77,7 @@ public interface ArticleMapper {
 			+ "now(),now(),#{commentCnt},"
 			+ "#{articleType,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,"
 			+ "jdbcType=INTEGER,javaType=com.zhangkuo.entity.TypeEnum})")
+	@SelectKey(keyProperty = "id", before = false, resultType = Integer.class, statement = { "SELECT LAST_INSERT_ID()" })
 	int add(Article article);
 
 	/** 
@@ -178,4 +180,8 @@ public interface ArticleMapper {
 	 */
 	@Select("SELECT * FROM cms_comment WHERE articleId=#{value}")
 	List<Comment> commentlist(int articleId);
+
+	List<Article> findAll();
+
+	void updateHits(Article article);
 }

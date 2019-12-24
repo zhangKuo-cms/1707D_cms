@@ -135,7 +135,7 @@
 								 分类：<a>${article.category.name}</a>
 								<br>
 								
-								${article.user.username} 发布于  <fmt:formatDate value="${article.created}" pattern="yyyy-MM-dd"/> 
+								${article.user.username} 发布于 ${article.created}"/> 
 							</div>
 						</div>
 						</c:forEach>
